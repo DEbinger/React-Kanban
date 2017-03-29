@@ -22,3 +22,22 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.cardBox {
+  border: 5px solid red;
+  background-color: cornflowerblue;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.Low {
+  background-color:
+}
+
+.Medium {
+  background-color:
+}
+
+.High {
+  background-color:
+}
