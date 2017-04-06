@@ -9,22 +9,21 @@ class NewTask extends React.Component {
     super();
     this.state = {
       title: '',
-      priority: '',
-      status: '',
       createdBy: '',
-      assignedTo: ''
+      status: '',
+      assignedTo: '',
+      priority: ''
     };
 
     this.handleSubmit=this.handleSubmit.bind(this);
     this.titleValue=this.titleValue.bind(this);
-    this.priorityValue=this.priorityValue.bind(this);
-    this.statusValue=this.statusValue.bind(this);
     this.createdByValue=this.createdByValue.bind(this);
+    this.statusValue=this.statusValue.bind(this);
     this.assignedToValue=this.assignedToValue.bind(this);
+    this.priorityValue=this.priorityValue.bind(this);
   }
 
 addCards(card){
-  console.log('add card xhr',card)
     return new Promise(function(resolve, reject){
       function reqListener (){
         let data = this.responseText;
@@ -38,11 +37,6 @@ addCards(card){
   });
 }
 
-// addCardsData(data){
-//   this.addCards(data)
-//   });
-// }
-
   handleSubmit(event){
     event.preventDefault();
     this.addCards({
@@ -54,34 +48,21 @@ addCards(card){
     })
     .then(data =>
     {
-     let card = JSON.parse(data)
-     console.log(card)
+     let card = JSON.parse(data);
     this.props.onAddCard(card.title, card.createdBy, card.status, card.assignedTo, card.priority);
     }
-)
+);
     this.setState ({
       title: '',
-      priority: '',
       createdBy: '',
-      assignedTo: ''
-    })
+      assignedTo: '',
+      priority: '',
+    });
 }
 
   titleValue(event){
     this.setState({
       title: event.target.value
-    });
-  }
-
-  priorityValue(event){
-    this.setState({
-      priority: event.target.value
-    });
-  }
-
-  statusValue(event){
-    this.setState({
-      status: event.target.value
     });
   }
 
@@ -91,9 +72,22 @@ addCards(card){
     });
   }
 
+  statusValue(event){
+    this.setState({
+      status: event.target.value
+    });
+  }
+
+
   assignedToValue(event){
     this.setState({
       assignedTo: event.target.value
+    });
+  }
+
+  priorityValue(event){
+    this.setState({
+      priority: event.target.value
     });
   }
 
@@ -101,16 +95,16 @@ render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <div>
-          <input type='text' placeholder='Title' onChange={this.titleValue} />
-          <input type='text' placeholder='Created By' onChange={this.createdByValue} />
+          <input type='text' placeholder='Title' onChange={this.titleValue}value={this.state.title}/>
+          <input type='text' placeholder='Created By' onChange={this.createdByValue}value={this.state.createdBy} />
           <select placeholder='Status' onChange={this.statusValue}>
             <option disabled selected value>Status</option>
-            <option value="Todo">Todo</option>
-            <option value="Inprogress">In Progress</option>
-            <option value="Completed">Completed</option>
+            <option value="New">New</option>
+            <option value="ToDo">To Do</option>
+            <option value="Done">Done</option>
           </select>
-          <input type='text' placeholder='Assigned To' onChange={this.assignedToValue} />
-          <input type='text' placeholder='Priority' onChange={this.priorityValue} />
+          <input type='text' placeholder='Assigned To' onChange={this.assignedToValue}value={this.state.assignedTo} />
+          <input type='text' placeholder='Priority' onChange={this.priorityValue}value={this.state.priority} />
         </div>
         <div>
           <button type="submit"> Submit Task </button>
@@ -129,12 +123,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddCard: (title, createdBy, status, assignedTo, priority) => {
-      dispatch(addCard(
-        title,
-        createdBy,
-        status,
-        assignedTo,
-        priority));
+      dispatch(addCard(title, createdBy, status, assignedTo, priority));
     }
   }
 };

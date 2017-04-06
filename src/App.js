@@ -4,10 +4,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import NewTask from './components/NewTask.js';
-import Card from './components/Card.js';
 import CardList from './components/CardList.js';
-import CurrentCard from './components/CompletedCard.js';
-import CompletedCard from './components/CurrentCard.js';
+import CurrentCard from './components/CurrentCard.js';
+import CompletedCard from './components/CompletedCard.js';
 
 import { addCard } from './actions';
 
@@ -24,14 +23,14 @@ class App extends Component {
     this.getCards()
     .then((data)=>{
       data.forEach( card => {
-        this.props.onAddCard(card.title, card.priority, card.status, card.createdBy, card.assignedTo);
+        this.props.onAddCard(card.title, card.createdBy, card.status, card.assignedTo, card.priority);
       });
     })
     .catch(function(event){
     });
   }
 
-  getCards(){
+   getCards(){
     return new Promise(function(resolve, reject){
       function reqListener(){
         resolve(JSON.parse(this.responseText));
@@ -43,7 +42,6 @@ class App extends Component {
       oReq.send();
     });
   }
-
 
   getCurrentCards(){
     return new Promise(function(resolve, reject){
@@ -85,14 +83,18 @@ class App extends Component {
     oReq.send();
   });
 }
+
   render() {
     return (
       <div className="App">
-
         <p className="App-intro">
         </p>
         <NewTask/>
-        <CardList/>
+        <div className="CardContainer">
+          <CardList/>
+          <CurrentCard/>
+          <CompletedCard/>
+        </div>
       </div>
     );
   }
@@ -106,8 +108,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (title, priority, status, createdBy, assignedTo) => {
-      dispatch(addCard(title, priority, status, createdBy, assignedTo));
+    onAddCard: (title, createdBy, status, assignedTo, priority) => {
+      dispatch(addCard(title, createdBy, status, assignedTo, priority));
     }
   }
 };

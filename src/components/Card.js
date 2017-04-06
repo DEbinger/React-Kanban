@@ -29,8 +29,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (title, priority, status, createdBy, assignedTo) => {
-      dispatch(addCard(title, priority, status, createdBy, assignedTo));
+    onAddCard: (title, createdBy, status, assignedTo, priority) => {
+      dispatch(addCard(title, createdBy, status, assignedTo, priority));
     }
   }
 };
