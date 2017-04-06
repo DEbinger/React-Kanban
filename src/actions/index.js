@@ -4,9 +4,10 @@ export const ADD_CARD = 'ADD_CARD';
 export const UPDATE_STATUS = 'UPDATE_STATUS';
 export const DELETE_CARD = 'DELETE_CARD';
 
-export function addCard(title, createdBy, status, assignedTo, priority) {
+export function addCard(id, title, createdBy, status, assignedTo, priority) {
   return {
     type: ADD_CARD,
+    id,
     title,
     createdBy,
     status,

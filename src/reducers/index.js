@@ -13,6 +13,7 @@ function cardReducer(state = initialState, action) {
         cards: [
           ...state.cards,
           {
+            id: action.id,
             title: action.title,
             priority: action.priority,
             status: action.status,

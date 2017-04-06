@@ -10,12 +10,14 @@ export class CardList extends Component {
   }
 
   render(){
+    console.log(this.props.cards)
     return (
       <div className="CardList">
       <h1>NEW</h1>
-        {this.props.cards.filter(card => card.status === "New").map(({title, createdBy, status, assignedTo, priority}) =>
+        {this.props.cards.filter(card => card.status === "New").map(({id, title, createdBy, status, assignedTo, priority}) =>
             <div className="completedCardDiv">
               <Card
+                id={id}
                 title={title}
                 createdBy={createdBy}
                 status={status}
@@ -36,8 +38,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (title, createdBy, status, assignedTo, priority) => {
-      dispatch(addCard(title, createdBy, status, assignedTo, priority));
+    onAddCard: (id, title, createdBy, status, assignedTo, priority) => {
+      dispatch(addCard(id, title, createdBy, status, assignedTo, priority));
     }
   }
 };

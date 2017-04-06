@@ -18,9 +18,10 @@ class CurrentCard extends Component {
     return (
       <div className="CurrentCard">
         <h1>TO DO</h1>
-          {this.props.cards.filter(card => card.status === "ToDo").map(({title, createdBy, status, assignedTo, priority}) =>
+          {this.props.cards.filter(card => card.status === "ToDo").map(({id, title, createdBy, status, assignedTo, priority}) =>
             <div className="completedCardDiv">
               <Card
+                id={id}
                 title={title}
                 createdBy={createdBy}
                 status={status}

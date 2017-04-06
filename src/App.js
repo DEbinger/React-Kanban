@@ -8,7 +8,7 @@ import CardList from './components/CardList.js';
 import CurrentCard from './components/CurrentCard.js';
 import CompletedCard from './components/CompletedCard.js';
 
-import { addCard } from './actions';
+import { addCard, updateStatus, deleteCard } from './actions';
 
 class App extends Component {
   constructor(){
@@ -23,7 +23,7 @@ class App extends Component {
     this.getCards()
     .then((data)=>{
       data.forEach( card => {
-        this.props.onAddCard(card.title, card.createdBy, card.status, card.assignedTo, card.priority);
+        this.props.onAddCard(card.id, card.title, card.createdBy, card.status, card.assignedTo, card.priority);
       });
     })
     .catch(function(event){
@@ -43,46 +43,46 @@ class App extends Component {
     });
   }
 
-  getCurrentCards(){
-    return new Promise(function(resolve, reject){
-      function reqListener (){
-        resolve(JSON.parse(this.responseText));
-        console.log(this.responseText);
-      }
-    var oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", reqListener);
-    oReq.open("GET", "api/card/");
-    oReq.setRequestHeader("Content-Type", "application/json");
-    oReq.send();
-  });
-}
+//   getCurrentCards(){
+//     return new Promise(function(resolve, reject){
+//       function reqListener (){
+//         resolve(JSON.parse(this.responseText));
+//         console.log(this.responseText);
+//       }
+//     var oReq = new XMLHttpRequest();
+//     oReq.addEventListener("load", reqListener);
+//     oReq.open("GET", "api/card/");
+//     oReq.setRequestHeader("Content-Type", "application/json");
+//     oReq.send();
+//   });
+// }
 
-  getCompletedCards(){
-    return new Promise(function(resolve, reject){
-      function reqListener (){
-        resolve(JSON.parse(this.responseText));
-        console.log(this.responseText);
-      }
-    var oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", reqListener);
-    oReq.open("GET", "api/card/");
-    oReq.setRequestHeader("Content-Type", "application/json");
-    oReq.send();
-  });
-}
+//   getCompletedCards(){
+//     return new Promise(function(resolve, reject){
+//       function reqListener (){
+//         resolve(JSON.parse(this.responseText));
+//         console.log(this.responseText);
+//       }
+//     var oReq = new XMLHttpRequest();
+//     oReq.addEventListener("load", reqListener);
+//     oReq.open("GET", "api/card/");
+//     oReq.setRequestHeader("Content-Type", "application/json");
+//     oReq.send();
+//   });
+// }
 
-  addCard(){
-    return new Promise(function(resolve, reject){
-      function reqListener (){
-        resolve(JSON.parse(this.responseText));
-      }
-    var oReq = new XMLHttpRequest();
-    oReq.addEventListener("load", reqListener);
-    oReq.open("POST", "api/card/");
-    oReq.setRequestHeader("Content-Type", "application/json");
-    oReq.send();
-  });
-}
+//   addCard(){
+//     return new Promise(function(resolve, reject){
+//       function reqListener (){
+//         resolve(JSON.parse(this.responseText));
+//       }
+//     var oReq = new XMLHttpRequest();
+//     oReq.addEventListener("load", reqListener);
+//     oReq.open("POST", "api/card/");
+//     oReq.setRequestHeader("Content-Type", "application/json");
+//     oReq.send();
+//   });
+// }
 
   render() {
     return (
@@ -108,8 +108,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddCard: (title, createdBy, status, assignedTo, priority) => {
-      dispatch(addCard(title, createdBy, status, assignedTo, priority));
+    onAddCard: (id, title, createdBy, status, assignedTo, priority) => {
+      dispatch(addCard(id, title, createdBy, status, assignedTo, priority));
     }
   }
 };
